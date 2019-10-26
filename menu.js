@@ -1,4 +1,4 @@
-{
+menu = {
     "飲み物":{
         "サッポロ生ビール 黒ラベル<樽生>":{
             "price": { "中ジョッキ":460, "大ジョッキ":720 },
@@ -38,7 +38,7 @@
             "select": true
         },
         "角ハイボール":{
-            "price": ,
+            "price": 30,
             "select": true
         },
         "カシスオレンジ":{
@@ -57,33 +57,17 @@
     "食べ物":{
         "旨い物":{
             "焼き肉豆腐":{
-                "price": ,
+                "price": 390,
                 "select": true
             },
-            "":{
-                "price": ,
+            "モツ煮込":{
+                "price": 490,
                 "select": true
             },
-            "":{
-                "price": ,
+            "炙りクリームチーズ(みそ漬)":{
+                "price": 290,
                 "select": true
-            },
-            "":{
-                "price": ,
-                "select": true
-            },
-            "":{
-                "price": ,
-                "select": true
-            },
-            "":{
-                "price": ,
-                "select": true
-            },
-            "":{
-                "price": ,
-                "select": true
-            },
+            }
         },
         "揚物":{
             "鶏もも唐揚":{

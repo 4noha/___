@@ -1,0 +1,28 @@
+<html>
+  <body>
+    <table width="100%" height="100%" id="table"></table>
+                
+  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <!-- 変数menuにマスターメニューデータの読み込み -->
+  <script src="./menu.js"></script>
+  <script>
+
+    // table向け配列データに整形
+    menu2 = ["飲み物"];
+    Object.keys(menu["飲み物"]).map(key => menu2.push( {name: key, value: menu["飲み物"][key]} ));
+    menu2.push("食べ物");
+    Object.keys(menu["食べ物"]).map(
+      key => Object.keys(menu["食べ物"][key]).map(key => menu2.push( {name: key, value: menu["食べ物"][key]} ))
+    );
+
+    // table表示生成
+    var lineCount = Math.floor(menu2.length / 2);
+    for( var i=0; i < lineCount; i++ )
+    {
+      var text1 = typeof menu2[i]    === 'string' ? `<b>${menu2[i]}</b>`               : menu2[i].name;
+      var text2 = typeof menu2[lineCount+i] === 'string' ? `<b>${menu2[ lineCount+i ]}</b>` : menu2[ lineCount+i ].name;
+      $('#table').append(`<tr><td id="cell${ i+1 }">${ text1 }</td><td id="cell${ lineCount+i+1 }">${ text2 }</td></tr>`);
+    }
+  </script>
+</html>
