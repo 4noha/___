@@ -41,18 +41,18 @@ renderTable = function(){
   var re = new RegExp(/^[0-9]/);
   for( var i=0; i<30; i++ )
   {
-    if($(`#cell${i}-0`).text().match(re)){
+    if($(`#cell${i}_0`).text().match(re)){
       eval(`
-        $("#cell${i}-0").mousedown(function(){
-            if(!current && $("#cell${i}-0").css('color') != "rgb(0, 0, 0)");{
-              $("#cell${i}-0").css({"background-color":"#ffcccc", "color":"black"});
-              current = "${i}-1";
+        $("#cell${i}_0").mousedown(function(){
+            if(!current && $("#cell${i}_0").css('color') != "rgb(0, 0, 0)");{
+              $("#cell${i}_0").css({"background-color":"#ffcccc", "color":"black"});
+              current = "${i}_1";
             }
         });
-        $("#cell${i}-0").bind('touchstart', function() {
-            if(!current && $("#cell${i}-0").css('color') != "rgb(0, 0, 0)");{
-              $("#cell${i}-0").css({"background-color":"#ffcccc", "color":"black"});
-              current = "${i}-1";
+        $("#cell${i}_0").bind('touchstart', function() {
+            if(!current && $("#cell${i}_0").css('color') != "rgb(0, 0, 0)");{
+              $("#cell${i}_0").css({"background-color":"#ffcccc", "color":"black"});
+              current = "${i}_1";
             }
         });
       `);
@@ -60,41 +60,33 @@ renderTable = function(){
       {
         eval(`
           // クリックしている間だけ左からめくれる
-          $("#cell${i}-${j}").hover(
-            function () {
-              console.log("hoge");
-              console.log(current+":"+"${i}-${j}");
-              if(current == "${i}-${j}"){
-                $(this).css({"background-color":"#ffcccc", "color":"black"});
-                current = "${i}-${j+1}";
+          fncell${i}_${j} = function () {
+            console.log("aaaaa");
+            if(current == "${i}_${j}"){
+              $("#cell${i}_${j}").css({"background-color":"#ffcccc", "color":"black"});
+              current = "${i}_${j+1}";
 
-                if( ${j}==64 || $("#cell${i}-${j+1}").css('color') == "rgb(0, 0, 0)" ){
-                  current = null;
-                  se();
-                }
+              if( ${j}==64 || $("#cell${i}_${j+1}").css('color') == "rgb(0, 0, 0)" ){
+                current = null;
+                se();
               }
-          });
+            }
+          };
         `);
       }
     }
   }
 
-/*
-  console.log(`cell2-0`);
-  let draggable = new DraggableElement(`cell2-0`);
+  let draggable = new DraggableElement(`body`);
   draggable.onChange = () => {
-      console.log(`${draggable.x}, ${draggable.y}`);
+      target = $(document.elementFromPoint(draggable.x, draggable.y));
+      var className = target.attr('class');
+      
+      if( className ){
+        console.log(target.attr('id'));
+        eval(`fn${ target.attr('id') }();`);
+      }
   };
-  draggabl = new DraggableElement(`cell3-0`);
-  draggabl.onChange = () => {
-      console.log(`${draggable.x}, ${draggable.y}`);
-  };
-  */
-  //this.element.onmousedown = event => {this.onMouseDown(event);};
-  //this.element.ontouchstart = event => {this.onMouseDown(event);};
-
-  
-  //registTurnEvent();
 }
 
 buildMenuArray = function( text, price, i, lineCount, diff ){
@@ -123,30 +115,26 @@ renderHalfCells = function( text, price, i, lineCount ){
     {
       if( text != "" )
       {
-        lineHtml += `<td id="cell${ lineCount+i+1 }-${ j }"><b>${ text.substring(0, 1) }</b></td>`;
+        lineHtml += `<td id="cell${ lineCount+i+1 }_${ j }"><b>${ text.substring(0, 1) }</b></td>`;
         text = text.slice(1);
       } else {
-        lineHtml += `<td id="cell${ lineCount+i+1 }-${ j }"></td>`;
+        lineHtml += `<td id="cell${ lineCount+i+1 }_${ j }"></td>`;
       }
     } else {
       if( text != "" )
       {
-        lineHtml += `<td id="cell${ lineCount+i+1 }-${ j }" style="padding:1 0;text-align:center;background-color: white;color:white;border: solid 0 1 #ff0000">${ text.substring(0, 1) }</td>`;
+        lineHtml += `<td id="cell${ lineCount+i+1 }_${ j }" class="fn${ lineCount+i+1 }_${ j }" style="padding:1 0;text-align:center;background-color: white;color:white;border: solid 0 1 #ff0000">${ text.substring(0, 1) }</td>`;
         text = text.slice(1);
       } else {
         // 値段右詰め
         if( price.length >= 30-j )
         {
-          lineHtml += `<td id="cell${ lineCount+i+1 }-${ j }">${ price.substring(0, 1) }</td>`;
+          lineHtml += `<td id="cell${ lineCount+i+1 }_${ j }">${ price.substring(0, 1) }</td>`;
           price = price.slice(1);
         } else {
-          lineHtml += `<td id="cell${ lineCount+i+1 }-${ j }"></td>`;
+          lineHtml += `<td id="cell${ lineCount+i+1 }_${ j }"></td>`;
         }
       }
     }
   }
 }
-
-onMouseDown = function(event) {
-    console.log($(this));
-};
