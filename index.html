@@ -4,6 +4,8 @@
 
     <link rel="stylesheet" type="text/css" href="./magnific-popup.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <!-- モーダルダイアログのライブラリ -->
+    <script src="jquery.magnific-popup.min.js"></script>
     <!-- 変数menuにマスターメニューデータの読み込み -->
     <script src="./menu.js"></script>
     <!-- メニューのレンダリング -->
@@ -11,9 +13,9 @@
   </head>
 
   <body style="background-color: #ffcccc;">
-    <table width="90%" height="80%" id="table" style="margin:0% 5% 0% 5%;">
+    <table width="90%" height="80%" id="table" style="border-collapse:collapse;border-spacing:0;table-layout:fixed;margin:0% 5% 0% 5%;">
       <tr>
-        <th colspan="4" style="font-size:700%;">めくり</th>
+        <th colspan="63" style="font-size:700%;">めくり</th>
       </tr>
     </table>
   </body>
@@ -21,5 +23,19 @@
   <script>
     // table表示生成
     renderTable();
+
+    /*
+    $(function () {
+      $('.popup-modal').magnificPopup({
+        type: 'inline',
+        preloader: false,
+        focus: '#username',
+        modal: true
+      });
+      $(document).on('click', '.popup-modal-dismiss', function (e) {
+        e.preventDefault();
+        $.magnificPopup.close();
+      });
+    });*/
   </script>
 </html>
