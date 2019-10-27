@@ -13,16 +13,25 @@
   </head>
 
   <body style="background-color: #ffcccc;">
-    <table width="90%" height="80%" id="table" style="border-collapse:collapse;border-spacing:0;table-layout:fixed;margin:0% 5% 0% 5%;">
+    <table width="90%" height="80%" id="table" border="2" bordercolor="#ffcccc" rules="rows" style="border-collapse:collapse;border-spacing:0 1;table-layout:fixed;margin:0% 5% 0% 5%;">
       <tr>
         <th colspan="63" style="font-size:700%;">めくり</th>
       </tr>
     </table>
+
+    <audio id="se" preload="auto">
+        <source src="./se.wav" type="audio/wav">
+     </audio>
   </body>
 
   <script>
     // table表示生成
     renderTable();
+
+    // se再生
+    se = function() {
+      document.getElementById("se").play();
+    }
 
     /*
     $(function () {

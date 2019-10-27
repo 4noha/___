@@ -13,6 +13,7 @@ renderTable = function(){
   var price1;
   var text2;
   var price2;
+  current = null;
 
   // 1行ずつ描画
   for( var i=0; i < lineCount; i++ )
@@ -28,7 +29,7 @@ renderTable = function(){
     buildMenuArray( text2, price2, i, lineCount-1, null );
 
     // めくり用に40列40列のtrセルを描画
-    lineHtml = "<tr>";
+    lineHtml = `<tr id="tr-${i}" style="user-select:none;">`;
     renderHalfCells( text1[0], price1[0], i, 0 );
     // 真ん中仕切り
     lineHtml += `<td></td><td></td><td></td>`;
@@ -36,6 +37,64 @@ renderTable = function(){
     renderHalfCells( text2[0], price2[0], i, lineCount );
     $('#table').append( `${lineHtml}</tr>` );
   }
+
+  var re = new RegExp(/^[0-9]/);
+  for( var i=0; i<30; i++ )
+  {
+    if($(`#cell${i}-0`).text().match(re)){
+      eval(`
+        $("#cell${i}-0").mousedown(function(){
+            if(!current && $("#cell${i}-0").css('color') != "rgb(0, 0, 0)");{
+              $("#cell${i}-0").css({"background-color":"#ffcccc", "color":"black"});
+              current = "${i}-1";
+            }
+        });
+        $("#cell${i}-0").bind('touchstart', function() {
+            if(!current && $("#cell${i}-0").css('color') != "rgb(0, 0, 0)");{
+              $("#cell${i}-0").css({"background-color":"#ffcccc", "color":"black"});
+              current = "${i}-1";
+            }
+        });
+      `);
+      for( var j=0; j<30; j++ )
+      {
+        eval(`
+          // クリックしている間だけ左からめくれる
+          $("#cell${i}-${j}").hover(
+            function () {
+              console.log("hoge");
+              console.log(current+":"+"${i}-${j}");
+              if(current == "${i}-${j}"){
+                $(this).css({"background-color":"#ffcccc", "color":"black"});
+                current = "${i}-${j+1}";
+
+                if( ${j}==64 || $("#cell${i}-${j+1}").css('color') == "rgb(0, 0, 0)" ){
+                  current = null;
+                  se();
+                }
+              }
+          });
+        `);
+      }
+    }
+  }
+
+/*
+  console.log(`cell2-0`);
+  let draggable = new DraggableElement(`cell2-0`);
+  draggable.onChange = () => {
+      console.log(`${draggable.x}, ${draggable.y}`);
+  };
+  draggabl = new DraggableElement(`cell3-0`);
+  draggabl.onChange = () => {
+      console.log(`${draggable.x}, ${draggable.y}`);
+  };
+  */
+  //this.element.onmousedown = event => {this.onMouseDown(event);};
+  //this.element.ontouchstart = event => {this.onMouseDown(event);};
+
+  
+  //registTurnEvent();
 }
 
 buildMenuArray = function( text, price, i, lineCount, diff ){
@@ -72,7 +131,7 @@ renderHalfCells = function( text, price, i, lineCount ){
     } else {
       if( text != "" )
       {
-        lineHtml += `<td id="cell${ lineCount+i+1 }-${ j }">${ text.substring(0, 1) }</td>`;
+        lineHtml += `<td id="cell${ lineCount+i+1 }-${ j }" style="padding:1 0;text-align:center;background-color: white;color:white;border: solid 0 1 #ff0000">${ text.substring(0, 1) }</td>`;
         text = text.slice(1);
       } else {
         // 値段右詰め
@@ -87,3 +146,7 @@ renderHalfCells = function( text, price, i, lineCount ){
     }
   }
 }
+
+onMouseDown = function(event) {
+    console.log($(this));
+};
