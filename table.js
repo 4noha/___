@@ -29,7 +29,7 @@ renderTable = function(){
 
     // めくり用に40列40列のtrセルを描画
     lineHtml = "<tr>";
-    renderHalfCells( text1[0], price2[0], i, 0 );
+    renderHalfCells( text1[0], price1[0], i, 0 );
     // 真ん中仕切り
     lineHtml += `<td></td><td></td><td></td>`;
     // 右列描画
