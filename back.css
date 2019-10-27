@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
 	font-family: 'MyFont';
-	src: url(../lib/font/GenEiNuGothic-EB.ttf);
+	src: url(./GenEiNuGothic-EB.ttf);
 }
   body {
     background: #f9f6d5;
@@ -70,7 +70,7 @@
     position: relative;
   font-family: MyFont;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 70px;
   font-size: 400%;
   color: #302833;
 }
